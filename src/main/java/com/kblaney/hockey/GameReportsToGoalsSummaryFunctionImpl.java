@@ -1,5 +1,7 @@
 package com.kblaney.hockey;
 
+import org.apache.commons.lang3.StringUtils;
+import com.google.common.collect.Lists;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -8,18 +10,25 @@ final class GameReportsToGoalsSummaryFunctionImpl implements GameReportsToGoalsS
   @Override
   public String getGoalsSummary(final List<GameReport> gameReports, final String playerPhpId)
   {
-    final StringBuilder s = new StringBuilder();
-    final SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    final List<String> gameSummaries = Lists.newArrayListWithExpectedSize(gameReports.size());
     for (final GameReport gameReport : gameReports)
     {
-      s.append(outputDateFormat.format(gameReport.getGameDate()));
-      s.append(" - ");
-      s.append(gameReport.getRoadTeam());
-      s.append(" @ ");
-      s.append(gameReport.getHomeTeam());
-      s.append(" - ");
-      s.append(getGoalsSummaryForGame(gameReport, playerPhpId));
+      gameSummaries.add(getGameSummary(gameReport, playerPhpId));
     }
+    return StringUtils.join(gameSummaries, '\n');
+  }
+
+  private String getGameSummary(final GameReport gameReport, final String playerPhpId)
+  {
+    final SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    final StringBuilder s = new StringBuilder();
+    s.append(outputDateFormat.format(gameReport.getGameDate()));
+    s.append(" - ");
+    s.append(gameReport.getRoadTeam());
+    s.append(" @ ");
+    s.append(gameReport.getHomeTeam());
+    s.append(" - ");
+    s.append(getGoalsSummaryForGame(gameReport, playerPhpId));
     return s.toString();
   }
 
