@@ -86,7 +86,7 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
     }
     final Period period = Period.fromString(periodElements.first().text());
     final String goalScorerHref = goalRow.select("td > a[href*=player.php]").first().attr("href");
-    final String goalScorerPlayerPhpId = goalScorerHref.substring(goalScorerHref.indexOf("id=") + 3);
-    return new GoalReport(period, goalScorerPlayerPhpId);
+    final String goalScorerPhpId = goalScorerHref.substring(goalScorerHref.indexOf("id=") + 3);
+    return new GoalReport(period, goalScorerPhpId);
   }
 }
