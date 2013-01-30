@@ -6,16 +6,13 @@ public final class GoalReport
 {
   private final Period period;
   private final String scorerPhpId;
-  private final String timeOfGoal;
-  private final String goalCategories;
+  private final String goalDescription;
 
-  public GoalReport(final Period period, final String goalScorerPhpId, final String timeOfGoal,
-        final String goalCategories)
+  public GoalReport(final Period period, final String goalScorerPhpId, final String goalDescription)
   {
     this.period = ArgAssert.assertNotNull(period, "period");
     this.scorerPhpId = ArgAssert.assertNotNull(goalScorerPhpId, "goalScorerPhpId");
-    this.timeOfGoal = ArgAssert.assertNotNull(timeOfGoal, "timeOfGoal");
-    this.goalCategories = ArgAssert.assertNotNull(goalCategories, "goalCategories");
+    this.goalDescription = ArgAssert.assertNotNull(goalDescription, "goalDescription");
   }
 
   public Period getPeriod()
@@ -28,13 +25,8 @@ public final class GoalReport
     return scorerPhpId;
   }
 
-  public String getTimeOfGoal()
+  public String getGoalDescription()
   {
-    return timeOfGoal;
-  }
-
-  public String getGoalCategories()
-  {
-    return goalCategories;
+    return goalDescription;
   }
 }

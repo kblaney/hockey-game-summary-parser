@@ -29,12 +29,8 @@ final class GameReportsToGoalsSummaryFunctionImpl implements GameReportsToGoalsS
     final StringBuilder s = new StringBuilder(goalReports.size() + " goals\n");
     for (final GoalReport goalReport : goalReports)
     {
-      s.append("  ");
-      s.append(goalReport.getPeriod());
-      s.append(" : ");
-      s.append(goalReport.getTimeOfGoal());
-      s.append(" ");
-      s.append(goalReport.getGoalCategories());
+      s.append("   ");
+      s.append(goalReport.getGoalDescription());
       s.append('\n');
     }
     return s.toString();

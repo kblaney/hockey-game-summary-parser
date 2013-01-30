@@ -6,9 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -84,9 +81,8 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
   {
     final Period period = getPeriod(goalRow);
     final String goalScorerPhpId = getGoalScorerPhpId(goalRow);
-    final String timeOfGoal = getTimeOfGoal(goalRow);
-    final String goalCategories = getGoalCategories(goalRow);
-    return new GoalReport(period, goalScorerPhpId, timeOfGoal, goalCategories);
+    final String goalDescription = getGoalDescription(goalRow);
+    return new GoalReport(period, goalScorerPhpId, goalDescription);
   }
 
   private Period getPeriod(final Element goalRow)
@@ -99,32 +95,9 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
     return Period.fromString(periodElements.first().text());
   }
 
-  private String getTimeOfGoal(final Element goalRow)
+  private String getGoalDescription(final Element goalRow)
   {
-    final Pattern pattern = Pattern.compile("(\\d\\d?:\\d\\d)");
-    final Matcher matcher = pattern.matcher(goalRow.text());
-    if (matcher.find())
-    {
-      return matcher.group(1);
-    }
-    else
-    {
-      throw new IllegalArgumentException("Time of goal not found: " + goalRow.text());
-    }
-  }
-
-  private String getGoalCategories(final Element goalRow)
-  {
-    final Pattern pattern = Pattern.compile("\\d\\d?:\\d\\d( \\(([A-Z/]+)\\))?$");
-    final Matcher matcher = pattern.matcher(goalRow.text());
-    if (matcher.find())
-    {
-      return StringUtils.defaultString(matcher.group(2), "ES");
-    }
-    else
-    {
-      throw new IllegalArgumentException("Time of goal not found: " + goalRow.text());
-    }
+    return goalRow.text();
   }
 
   private String getGoalScorerPhpId(final Element goalRow)
