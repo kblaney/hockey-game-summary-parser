@@ -80,6 +80,10 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
   private GoalReport getGoalReport(final Element goalRow)
   {
     final Elements periodElements = goalRow.select("td > i");
+    if (periodElements.size() != 1)
+    {
+      throw new IllegalArgumentException("Invalid number of period elements: " + periodElements.size());
+    }
     final Period period = Period.fromString(periodElements.first().text());
     final String goalScorerHref = goalRow.select("td > a[href*=player.php]").first().attr("href");
     final String goalScorerPlayerPhpId = goalScorerHref.substring(goalScorerHref.indexOf("id=") + 3);
