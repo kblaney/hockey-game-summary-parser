@@ -1,11 +1,14 @@
 package com.kblaney.hockey;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import com.google.common.collect.Lists;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -79,14 +82,54 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
 
   private GoalReport getGoalReport(final Element goalRow)
   {
+    final Period period = getPeriod(goalRow);
+    final String goalScorerPhpId = getGoalScorerPhpId(goalRow);
+    final String timeOfGoal = getTimeOfGoal(goalRow);
+    final String goalCategories = getGoalCategories(goalRow);
+    return new GoalReport(period, goalScorerPhpId, timeOfGoal, goalCategories);
+  }
+
+  private Period getPeriod(final Element goalRow)
+  {
     final Elements periodElements = goalRow.select("td > i");
     if (periodElements.size() != 1)
     {
       throw new IllegalArgumentException("Invalid number of period elements: " + periodElements.size());
     }
-    final Period period = Period.fromString(periodElements.first().text());
+    return Period.fromString(periodElements.first().text());
+  }
+
+  private String getTimeOfGoal(final Element goalRow)
+  {
+    final Pattern pattern = Pattern.compile("(\\d\\d?:\\d\\d)");
+    final Matcher matcher = pattern.matcher(goalRow.text());
+    if (matcher.find())
+    {
+      return matcher.group(1);
+    }
+    else
+    {
+      throw new IllegalArgumentException("Time of goal not found: " + goalRow.text());
+    }
+  }
+
+  private String getGoalCategories(final Element goalRow)
+  {
+    final Pattern pattern = Pattern.compile("\\d\\d?:\\d\\d( \\(([A-Z/]+)\\))?$");
+    final Matcher matcher = pattern.matcher(goalRow.text());
+    if (matcher.find())
+    {
+      return StringUtils.defaultString(matcher.group(2), "ES");
+    }
+    else
+    {
+      throw new IllegalArgumentException("Time of goal not found: " + goalRow.text());
+    }
+  }
+
+  private String getGoalScorerPhpId(final Element goalRow)
+  {
     final String goalScorerHref = goalRow.select("td > a[href*=player.php]").first().attr("href");
-    final String goalScorerPhpId = goalScorerHref.substring(goalScorerHref.indexOf("id=") + 3);
-    return new GoalReport(period, goalScorerPhpId);
+    return goalScorerHref.substring(goalScorerHref.indexOf("id=") + 3);
   }
 }
