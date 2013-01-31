@@ -39,6 +39,8 @@ final class GameReportsToGoalsSummaryFunctionImpl implements GameReportsToGoalsS
     for (final GoalReport goalReport : goalReports)
     {
       s.append("   ");
+      s.append(goalReport.getScoreAfterThisGoal());
+      s.append(": ");
       s.append(goalReport.getGoalDescription());
       s.append('\n');
     }

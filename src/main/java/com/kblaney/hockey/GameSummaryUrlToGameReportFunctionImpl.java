@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -64,10 +66,11 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
   private List<GoalReport> getGoalReports(final Document document) throws IOException
   {
     final Elements goalRows = getGoalRows(document);
+    final GameScore gameScore = new GameScore();
     final List<GoalReport> goalReports = Lists.newArrayList();
     for (final Element goalRow : goalRows)
     {
-      goalReports.add(getGoalReport(goalRow));
+      goalReports.add(getGoalReport(goalRow, gameScore));
     }
     return goalReports;
   }
@@ -77,12 +80,14 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
     return document.select("tr:matches(Scoring) ~ tr.light");
   }
 
-  private GoalReport getGoalReport(final Element goalRow)
+  private GoalReport getGoalReport(final Element goalRow, final GameScore gameScore)
   {
     final Period period = getPeriod(goalRow);
     final String goalScorerPhpId = getGoalScorerPhpId(goalRow);
     final String goalDescription = getGoalDescription(goalRow);
-    return new GoalReport(period, goalScorerPhpId, goalDescription);
+    final String goalScoringTeam = getGoalScoringTeam(goalDescription);
+    gameScore.addGoal(goalScoringTeam);
+    return new GoalReport(period, gameScore, goalScorerPhpId, goalDescription);
   }
 
   private Period getPeriod(final Element goalRow)
@@ -95,14 +100,28 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
     return Period.fromString(periodElements.first().text());
   }
 
+  private String getGoalScorerPhpId(final Element goalRow)
+  {
+    final String goalScorerHref = goalRow.select("td > a[href*=player.php]").first().attr("href");
+    return goalScorerHref.substring(goalScorerHref.indexOf("id=") + 3);
+  }
+
   private String getGoalDescription(final Element goalRow)
   {
     return goalRow.text();
   }
 
-  private String getGoalScorerPhpId(final Element goalRow)
+  private String getGoalScoringTeam(final String goalDescription)
   {
-    final String goalScorerHref = goalRow.select("td > a[href*=player.php]").first().attr("href");
-    return goalScorerHref.substring(goalScorerHref.indexOf("id=") + 3);
+    final Pattern pattern = Pattern.compile("\\. (\\w+)");
+    final Matcher matcher = pattern.matcher(goalDescription);
+    if (matcher.find())
+    {
+      return matcher.group(1);
+    }
+    else
+    {
+      throw new IllegalStateException("Can't find goal-scoring team: " + goalDescription);
+    }
   }
 }

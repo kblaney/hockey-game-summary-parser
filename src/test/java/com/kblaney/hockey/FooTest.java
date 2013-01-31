@@ -10,8 +10,8 @@ public final class FooTest
   @Test
   public void foo() throws Exception
   {
-    final League league = League.OHL;
-    final String playerPhpId = "5461";
+    final League league = League.ECHL;
+    final String playerPhpId = "2417";
     final List<GameReport> gameReports = new PlayerPhpIdToGameReportsFunctionImpl().getGameReports(league, playerPhpId);
     final String goalsSummary = new GameReportsToGoalsSummaryFunctionImpl().getGoalsSummary(gameReports, playerPhpId);
     System.out.println(goalsSummary);
