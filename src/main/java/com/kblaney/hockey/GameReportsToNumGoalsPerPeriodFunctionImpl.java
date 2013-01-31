@@ -1,6 +1,5 @@
 package com.kblaney.hockey;
 
-import com.google.common.collect.Maps;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +8,7 @@ final class GameReportsToNumGoalsPerPeriodFunctionImpl implements GameReportsToN
   @Override
   public Map<Period, Integer> getNumGoalsPerPeriod(final List<GameReport> gameReports, final String playerPhpId)
   {
-    final Map<Period, Integer> numGoalsPerPeriod = getZeroGoalsPerPeriod();
+    final Map<Period, Integer> numGoalsPerPeriod = GoalsPerPeriod.getMapWithZeroGoalsPerPeriod();
     for (final GameReport gameReport : gameReports)
     {
       for (final GoalReport goalReport : gameReport.getGoalReportsForPlayer(playerPhpId))
@@ -19,15 +18,5 @@ final class GameReportsToNumGoalsPerPeriodFunctionImpl implements GameReportsToN
       }
     }
     return numGoalsPerPeriod;
-  }
-
-  private Map<Period, Integer> getZeroGoalsPerPeriod()
-  {
-    final Map<Period, Integer> goalsPerPeriod = Maps.newHashMap();
-    goalsPerPeriod.put(Period.FIRST_PERIOD, 0);
-    goalsPerPeriod.put(Period.SECOND_PERIOD, 0);
-    goalsPerPeriod.put(Period.THIRD_PERIOD, 0);
-    goalsPerPeriod.put(Period.OVERTIME, 0);
-    return goalsPerPeriod;
   }
 }
