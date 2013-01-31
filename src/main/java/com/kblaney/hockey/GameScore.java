@@ -9,6 +9,9 @@ public final class GameScore
   private int numTeamOneGoals;
   private int numTeamTwoGoals;
 
+  /**
+   * Constructs an instance in which neither team is defined and the score is 0-0.
+   */
   public GameScore()
   {
     teamOne = Optional.absent();
@@ -17,6 +20,39 @@ public final class GameScore
     numTeamTwoGoals = 0;
   }
 
+  /**
+   * Constructs an instance in which one team is being shutout.
+   *
+   * @param teamOne the team that is not being shutout
+   * @param numTeamOneGoals the number of goals for {@code teamOne}
+   */
+  public GameScore(final String teamOne, final int numTeamOneGoals)
+  {
+    this.teamOne = Optional.of(teamOne);
+    this.numTeamOneGoals = numTeamOneGoals;
+  }
+
+  /**
+   * Constructs an instance in which both both teams have scored.
+   *
+   * @param teamOne the first team
+   * @param numTeamOneGoals the number of goals for {@code teamOne}
+   * @param teamTwo the second team
+   * @param numTeamOneGoals the number of goals for {@code teamTwo}
+   */
+  public GameScore(final String teamOne, final int numTeamOneGoals, final String teamTwo, final int numTeamTwoGoals)
+  {
+    this.teamOne = Optional.of(teamOne);
+    this.numTeamOneGoals = numTeamOneGoals;
+    this.teamTwo = Optional.of(teamTwo);
+    this.numTeamTwoGoals = numTeamTwoGoals;
+  }
+
+  /**
+   * Copy constructor.
+   *
+   * @param gameScore the original game score from which to create this instance
+   */
   public GameScore(final GameScore gameScore)
   {
     teamOne = gameScore.teamOne;

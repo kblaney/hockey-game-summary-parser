@@ -1,7 +1,6 @@
 package com.kblaney.hockey;
 
 import com.google.common.collect.Lists;
-import com.kblaney.assertions.ArgAssert;
 import java.util.List;
 import org.joda.time.LocalDate;
 
@@ -18,7 +17,7 @@ public final class GameReport
     this.gameDate = gameDate;
     this.roadTeam = roadTeam;
     this.homeTeam = homeTeam;
-    this.goalReports = Lists.newArrayList(ArgAssert.assertNotNull(goalReports, "goalReports"));
+    this.goalReports = Lists.newArrayList(goalReports);
   }
 
   public LocalDate getGameDate()
