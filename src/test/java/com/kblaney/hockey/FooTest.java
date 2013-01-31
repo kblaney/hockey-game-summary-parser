@@ -1,10 +1,12 @@
 package com.kblaney.hockey;
 
+import org.junit.Ignore;
 import java.util.List;
 import org.junit.Test;
 
 public final class FooTest
 {
+  @Ignore
   @Test
   public void foo() throws Exception
   {
