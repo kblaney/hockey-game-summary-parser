@@ -12,7 +12,8 @@ public final class GameReport
   private final String homeTeam;
   private final List<GoalReport> goalReports;
 
-  public GameReport(final Date gameDate, final String roadTeam, final String homeTeam, final List<GoalReport> goalReports)
+  public GameReport(final Date gameDate, final String roadTeam, final String homeTeam,
+        final List<GoalReport> goalReports)
   {
     this.gameDate = new Date(gameDate.getTime());
     this.roadTeam = roadTeam;
@@ -42,14 +43,14 @@ public final class GameReport
 
   public List<GoalReport> getGoalReportsForPlayer(final String playerPhpId)
   {
-    final List<GoalReport> goals = Lists.newArrayList();
+    final List<GoalReport> goalReportsForPlayer = Lists.newArrayList();
     for (final GoalReport goalReport : goalReports)
     {
       if (goalReport.getScorerPhpId().equals(playerPhpId))
       {
-        goals.add(goalReport);
+        goalReportsForPlayer.add(goalReport);
       }
     }
-    return goals;
+    return goalReportsForPlayer;
   }
 }
