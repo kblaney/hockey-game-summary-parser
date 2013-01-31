@@ -2,28 +2,28 @@ package com.kblaney.hockey;
 
 import com.google.common.collect.Lists;
 import com.kblaney.assertions.ArgAssert;
-import java.util.Date;
 import java.util.List;
+import org.joda.time.LocalDate;
 
 public final class GameReport
 {
-  private final Date gameDate;
+  private final LocalDate gameDate;
   private final String roadTeam;
   private final String homeTeam;
   private final List<GoalReport> goalReports;
 
-  public GameReport(final Date gameDate, final String roadTeam, final String homeTeam,
+  public GameReport(final LocalDate gameDate, final String roadTeam, final String homeTeam,
         final List<GoalReport> goalReports)
   {
-    this.gameDate = new Date(gameDate.getTime());
+    this.gameDate = gameDate;
     this.roadTeam = roadTeam;
     this.homeTeam = homeTeam;
     this.goalReports = Lists.newArrayList(ArgAssert.assertNotNull(goalReports, "goalReports"));
   }
 
-  public Date getGameDate()
+  public LocalDate getGameDate()
   {
-    return new Date(gameDate.getTime());
+    return gameDate;
   }
 
   public String getRoadTeam()

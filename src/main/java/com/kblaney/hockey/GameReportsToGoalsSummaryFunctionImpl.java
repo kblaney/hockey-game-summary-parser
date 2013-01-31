@@ -1,9 +1,8 @@
 package com.kblaney.hockey;
 
-import org.apache.commons.lang3.StringUtils;
 import com.google.common.collect.Lists;
-import java.text.SimpleDateFormat;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 final class GameReportsToGoalsSummaryFunctionImpl implements GameReportsToGoalsSummaryFunction
 {
@@ -20,9 +19,8 @@ final class GameReportsToGoalsSummaryFunctionImpl implements GameReportsToGoalsS
 
   private String getGameSummary(final GameReport gameReport, final String playerPhpId)
   {
-    final SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     final StringBuilder s = new StringBuilder();
-    s.append(outputDateFormat.format(gameReport.getGameDate()));
+    s.append(gameReport.getGameDate());
     s.append(" - ");
     s.append(gameReport.getRoadTeam());
     s.append(" @ ");

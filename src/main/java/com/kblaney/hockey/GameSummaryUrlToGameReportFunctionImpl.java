@@ -3,11 +3,11 @@ package com.kblaney.hockey;
 import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,7 +19,7 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
   public GameReport getGameReport(final String gameSummaryUrl) throws IOException, ParseException
   {
     final Document document = getDocument(gameSummaryUrl);
-    final Date gameDate = getGameDate(document);
+    final LocalDate gameDate = getGameDate(document);
     final String roadTeam = getRoadTeam(document);
     final String homeTeam = getHomeTeam(document);
     final List<GoalReport> goalReports = getGoalReports(document);
@@ -31,7 +31,7 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
     return Jsoup.connect(gameSummaryUrl).timeout(0).get();
   }
 
-  private Date getGameDate(final Document document) throws ParseException
+  private LocalDate getGameDate(final Document document) throws ParseException
   {
     final Elements gameDateElements = document.select("b.title:matchesOwn(GAME SUMMARY) ~ b");
     if (gameDateElements.size() != 1)
@@ -39,8 +39,7 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
       throw new IllegalArgumentException("Invalid number of game date elements :" + gameDateElements.size());
     }
     final String date = gameDateElements.first().text();
-    final SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
-    return dateFormat.parse(date);
+    return LocalDate.parse(date, DateTimeFormat.forPattern("EEEE, MMMM dd, yyyy"));
   }
 
   private String getRoadTeam(final Document document)
