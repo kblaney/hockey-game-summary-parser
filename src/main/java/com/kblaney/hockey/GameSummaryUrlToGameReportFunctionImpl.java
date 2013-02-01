@@ -1,20 +1,34 @@
 package com.kblaney.hockey;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 import org.joda.time.LocalDate;
 import org.jsoup.nodes.Document;
 
 final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGameReportFunction
 {
-  private final DocumentSupplier documentSupplier = new DocumentSupplierImpl();
-  private final DocumentParserTo<LocalDate> gameDateSupplier = new GameDateSupplier();
-  private final TeamSupplier teamSupplier = new TeamSupplierImpl();
-  private final DocumentParserTo<List<GoalReport>> goalReportsSupplier = new GoalReportsSupplier();
+  private final DocumentSupplier documentSupplier;
+  private final DocumentParserTo<LocalDate> gameDateSupplier;
+  private final TeamSupplier teamSupplier;
+  private final DocumentParserTo<List<GoalReport>> goalReportsSupplier;
+
+  public GameSummaryUrlToGameReportFunctionImpl()
+  {
+    this(new DocumentSupplierImpl(), new GameDateSupplier(), new TeamSupplierImpl(), new GoalReportsSupplier());
+  }
+
+  GameSummaryUrlToGameReportFunctionImpl(final DocumentSupplier documentSupplier,
+        final DocumentParserTo<LocalDate> gameDateSupplier, final TeamSupplier teamSupplier,
+        final DocumentParserTo<List<GoalReport>> goalReportsSupplier)
+  {
+    this.documentSupplier = documentSupplier;
+    this.gameDateSupplier = gameDateSupplier;
+    this.teamSupplier = teamSupplier;
+    this.goalReportsSupplier = goalReportsSupplier;
+  }
 
   @Override
-  public GameReport getGameReport(final String gameSummaryUrl) throws IOException, ParseException
+  public GameReport getGameReport(final String gameSummaryUrl) throws IOException
   {
     final Document document = getDocument(gameSummaryUrl);
     final LocalDate gameDate = getGameDate(document);
