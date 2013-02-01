@@ -8,13 +8,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGameReportFunction
 {
+  private final DocumentSupplier documentSupplier = new DocumentSupplierImpl();
+
   @Override
   public GameReport getGameReport(final String gameSummaryUrl) throws IOException, ParseException
   {
@@ -28,7 +29,7 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
 
   private Document getDocument(final String gameSummaryUrl) throws IOException
   {
-    return Jsoup.connect(gameSummaryUrl).timeout(0).get();
+    return documentSupplier.getDocument(gameSummaryUrl);
   }
 
   private LocalDate getGameDate(final Document document) throws ParseException
@@ -62,7 +63,7 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
     return getTeam(document.select("b.content-w:matchesOwn(HOME)"));
   }
 
-  private List<GoalReport> getGoalReports(final Document document) throws IOException
+  private List<GoalReport> getGoalReports(final Document document)
   {
     final Elements goalRows = getGoalRows(document);
     final GameScore gameScore = new GameScore();
@@ -74,7 +75,7 @@ final class GameSummaryUrlToGameReportFunctionImpl implements GameSummaryUrlToGa
     return goalReports;
   }
 
-  private Elements getGoalRows(final Document document) throws IOException
+  private Elements getGoalRows(final Document document)
   {
     return document.select("tr:matches(Scoring) ~ tr.light");
   }

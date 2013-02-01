@@ -3,16 +3,17 @@ package com.kblaney.hockey;
 import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.util.List;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 final class PlayerGameByGameUrlToGameSummaryUrlsFunctionImpl implements PlayerGameByGameUrlToGameSummaryUrlsFunction
 {
+  private final DocumentSupplier documentSupplier = new DocumentSupplierImpl();
+
   @Override
   public List<String> getGameSummaryUrls(final League league, final String playerGameByGameUrl) throws IOException
   {
-    final Document document = Jsoup.connect(playerGameByGameUrl).get();
+    final Document document = documentSupplier.getDocument(playerGameByGameUrl);
     final List<Element> gameElements = document.select("table.statsTable > tbody > tr:not(.totals)");
     final List<String> gameSummaryUrls = Lists.newArrayList();
     for (final Element gameElement : gameElements)
