@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public final class FooTest
 {
-  @Ignore
+  //@Ignore
   @Test
   public void foo() throws Exception
   {
