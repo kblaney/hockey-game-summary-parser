@@ -15,6 +15,13 @@ public final class GameScoreTest
   }
 
   @Test
+  public void shutoutConstructor()
+  {
+    final GameScore gameScore = new GameScore("Team A", 5);
+    assertEquals("Team A 5 - 0", gameScore.toString());
+  }
+
+  @Test
   public void copyConstructor_GameTiedAtZero()
   {
     final GameScore copy = new GameScore(gameScore);

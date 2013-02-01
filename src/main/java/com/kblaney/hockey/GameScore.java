@@ -30,22 +30,8 @@ public final class GameScore
   {
     this.teamOne = Optional.of(teamOne);
     this.numTeamOneGoals = numTeamOneGoals;
-  }
-
-  /**
-   * Constructs an instance in which both both teams have scored.
-   *
-   * @param teamOne the first team
-   * @param numTeamOneGoals the number of goals for {@code teamOne}
-   * @param teamTwo the second team
-   * @param numTeamOneGoals the number of goals for {@code teamTwo}
-   */
-  public GameScore(final String teamOne, final int numTeamOneGoals, final String teamTwo, final int numTeamTwoGoals)
-  {
-    this.teamOne = Optional.of(teamOne);
-    this.numTeamOneGoals = numTeamOneGoals;
-    this.teamTwo = Optional.of(teamTwo);
-    this.numTeamTwoGoals = numTeamTwoGoals;
+    teamTwo = Optional.absent();
+    numTeamTwoGoals = 0;
   }
 
   /**
