@@ -93,6 +93,11 @@ public final class GameScore
     return (teamOne.isPresent() && teamTwo.isPresent());
   }
 
+  public int getGoalDifferential()
+  {
+    return Math.abs(numTeamOneGoals - numTeamTwoGoals);
+  }
+
   @Override
   public String toString()
   {

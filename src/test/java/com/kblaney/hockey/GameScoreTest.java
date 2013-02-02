@@ -84,4 +84,52 @@ public final class GameScoreTest
     gameScore.addGoal("Team B");
     assertEquals("Team B 2 - Team A 1", gameScore.toString());
   }
+
+  @Test
+  public void getGoalDifferential_GameTiedAtZero()
+  {
+    assertEquals(0, new GameScore().getGoalDifferential());
+  }
+
+  @Test
+  public void getGoalDifferential_OneGoalInGame()
+  {
+    gameScore.addGoal("Team A");
+    assertEquals(1, gameScore.getGoalDifferential());
+  }
+
+  @Test
+  public void getGoalDifferential_GameTiedAtOne()
+  {
+    gameScore.addGoal("Team A");
+    gameScore.addGoal("Team B");
+    assertEquals(0, gameScore.getGoalDifferential());
+  }
+
+  @Test
+  public void getGoalDifferential_FirstTeamToScoreLosesLead()
+  {
+    gameScore.addGoal("Team A");
+    gameScore.addGoal("Team B");
+    gameScore.addGoal("Team B");
+    assertEquals(1, gameScore.getGoalDifferential());
+  }
+
+  @Test
+  public void getGoalDifferential_BlowoutWithManyGoals()
+  {
+    gameScore.addGoal("Team A");
+    gameScore.addGoal("Team B");
+    gameScore.addGoal("Team B");
+    gameScore.addGoal("Team A");
+    gameScore.addGoal("Team A");
+    gameScore.addGoal("Team A");
+    gameScore.addGoal("Team B");
+    gameScore.addGoal("Team A");
+    gameScore.addGoal("Team A");
+    gameScore.addGoal("Team A");
+    gameScore.addGoal("Team A");
+    gameScore.addGoal("Team A");
+    assertEquals(6, gameScore.getGoalDifferential());
+  }
 }
