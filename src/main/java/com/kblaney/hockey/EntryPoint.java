@@ -12,7 +12,8 @@ public final class EntryPoint
 {
   public static void main(final String[] args) throws Exception
   {
-    final List<Player> draftEligiblePlayers = Lists.newArrayList(new Player("Nathan McKinnon", League.QMJHL, "11126"));
+    final List<Player> draftEligiblePlayers = Lists.newArrayList(new Player("Nathan McKinnon", League.QMJHL, "Halifax",
+          "C", "11126"));
     for (final Player player : draftEligiblePlayers)
     {
       final List<GameReport> gameReports = new PlayerToGameReportsFunctionImpl().getGameReports(player);

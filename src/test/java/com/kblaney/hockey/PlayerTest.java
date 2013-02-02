@@ -8,6 +8,8 @@ public class PlayerTest
 {
   private String name;
   private League league;
+  private String team;
+  private String position;
   private String phpId;
   private Player player;
 
@@ -16,8 +18,10 @@ public class PlayerTest
   {
     name = "Nathan McKinnon";
     league = League.QMJHL;
+    team = "Halifax";
+    position = "C";
     phpId = "11126";
-    player = new Player(name, league, phpId);
+    player = new Player(name, league, team, position, phpId);
   }
 
   @Test
@@ -30,6 +34,18 @@ public class PlayerTest
   public void getLeague()
   {
     assertEquals(league, player.getLeague());
+  }
+
+  @Test
+  public void getTeam()
+  {
+    assertEquals(team, player.getTeam());
+  }
+
+  @Test
+  public void getPosition()
+  {
+    assertEquals(position, player.getPosition());
   }
 
   @Test
