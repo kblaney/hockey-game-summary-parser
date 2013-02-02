@@ -1,6 +1,6 @@
 package com.kblaney.hockey;
 
-public final class Player
+public class Player
 {
   private final String name;
   private final League league;
@@ -17,27 +17,27 @@ public final class Player
     this.phpId = phpId;
   }
 
-  public String getName()
+  public final String getName()
   {
     return name;
   }
 
-  public League getLeague()
+  public final League getLeague()
   {
     return league;
   }
 
-  public String getTeam()
+  public final String getTeam()
   {
     return team;
   }
 
-  public String getPosition()
+  public final String getPosition()
   {
     return position;
   }
 
-  public String getPhpId()
+  public final String getPhpId()
   {
     return phpId;
   }
