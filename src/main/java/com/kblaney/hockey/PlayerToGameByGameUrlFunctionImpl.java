@@ -4,14 +4,14 @@ import java.io.IOException;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-final class PlayerPhpIdToGameByGameUrlFunctionImpl implements PlayerPhpIdToGameByGameUrlFunction
+final class PlayerToGameByGameUrlFunctionImpl implements PlayerToGameByGameUrlFunction
 {
   private final DocumentSupplier documentSupplier = new DocumentSupplierImpl();
 
   @Override
-  public String getGameByGameUrl(final League league, final String playerPhpId) throws IOException
+  public String getGameByGameUrl(final Player player) throws IOException
   {
-    final String url = league.getUrlProtocolAndHost() + "/stats/player.php?id=" + playerPhpId;
+    final String url = player.getLeague().getUrlProtocolAndHost() + "/stats/player.php?id=" + player.getPhpId();
     final Document document = documentSupplier.getDocument(url);
     final Elements elements = document.select("a[href*=gameByGame");
     if (elements.size() != 1)
@@ -21,7 +21,7 @@ final class PlayerPhpIdToGameByGameUrlFunctionImpl implements PlayerPhpIdToGameB
     final String href = elements.first().attr("href");
     if (href.startsWith("/"))
     {
-      return league.getUrlProtocolAndHost() + href;
+      return player.getLeague().getUrlProtocolAndHost() + href;
     }
     else
     {

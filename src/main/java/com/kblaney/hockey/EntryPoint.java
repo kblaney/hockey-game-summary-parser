@@ -6,10 +6,10 @@ public final class EntryPoint
 {
   public static void main(final String[] args) throws Exception
   {
-    final League league = League.ECHL;
-    final String playerPhpId = "2417";
-    final List<GameReport> gameReports = new PlayerPhpIdToGameReportsFunctionImpl().getGameReports(league, playerPhpId);
-    final String goalsSummary = new GameReportsToGoalsSummaryFunctionImpl().getGoalsSummary(gameReports, playerPhpId);
+    final Player player = new Player("Nathan McKinnon", League.QMJHL, "11126");
+    final List<GameReport> gameReports = new PlayerToGameReportsFunctionImpl().getGameReports(player);
+    final String goalsSummary = new GameReportsToGoalsSummaryFunctionImpl().getGoalsSummary(gameReports,
+          player.getPhpId());
     System.out.println(goalsSummary);
   }
 }
