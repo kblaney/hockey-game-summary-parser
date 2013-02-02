@@ -1,14 +1,10 @@
 package com.kblaney.hockey;
 
-import org.junit.Ignore;
 import java.util.List;
-import org.junit.Test;
 
-public final class FooTest
+public final class EntryPoint
 {
-  @Ignore
-  @Test
-  public void foo() throws Exception
+  public static void main(final String[] args) throws Exception
   {
     final League league = League.ECHL;
     final String playerPhpId = "2417";
