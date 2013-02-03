@@ -1,5 +1,8 @@
 package com.kblaney.hockey;
 
+import com.google.common.collect.Maps;
+import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
+import java.util.Map;
 import java.util.Locale;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
@@ -229,7 +232,7 @@ public final class EntryPoint
 //          LV  HENRY, ADAM D LETHBRIDGE  WHL
 //          LV  OTTERMAN, CHAD  LW  NEW JERSEY HITMEN EJHL          );
 
-    writeSummaryFile(draftEligiblePlayers);
+    final Map<DraftEligiblePlayer, SummaryStatistics> goalDifferentialStatsMap = Maps.newHashMap();
     for (final DraftEligiblePlayer player : draftEligiblePlayers)
     {
       System.out.println("Getting report for " + player.getName());
@@ -238,10 +241,14 @@ public final class EntryPoint
       final PrintStream printStream = getPrintStreamFor(player);
       try
       {
+        final SummaryStatistics goalDifferentialStats = new GameReportsToGoalDifferentialStatsFunctionImpl()
+              .getGoalDifferentialStats(gameReports, player);
+        goalDifferentialStatsMap.put(player, goalDifferentialStats);
+
         printStream.println(player.getName());
         printStream.println();
-        printStream.println("Average Goal Differential: " +
-              new GameReportsToAverageGoalDifferentialFunctionImpl().getAverageGoalDifferential(gameReports, player));
+        printStream.println("Number of goals: " + goalDifferentialStats.getN());
+        printStream.println("Average Goal Differential: " + goalDifferentialStats.getMean());
         printStream.println();
         printStream
               .println(new GameReportsToGoalsSummaryFunctionImpl().getGoalsSummary(gameReports, player.getPhpId()));
@@ -251,14 +258,16 @@ public final class EntryPoint
         printStream.close();
       }
     }
+    writeSummaryFile(goalDifferentialStatsMap);
   }
 
-  private static void writeSummaryFile(final List<DraftEligiblePlayer> players) throws FileNotFoundException
+  private static void writeSummaryFile(final Map<DraftEligiblePlayer, SummaryStatistics> goalDifferentialStatsMap)
+        throws FileNotFoundException
   {
     final PrintStream printStream = getPrintStreamForFile(new File(OUTPUT_FOLDER, "chl-skaters-goal-reports.html"));
     try
     {
-      printStream.println(new DraftEligiblesSummaryTable(players).toHtml());
+      printStream.println(new DraftEligiblesSummaryTable(goalDifferentialStatsMap).toHtml());
     }
     finally
     {

@@ -1,17 +1,18 @@
 package com.kblaney.hockey;
 
-import com.google.common.collect.Lists;
-import java.util.List;
+import com.google.common.collect.Maps;
 import java.util.Locale;
+import java.util.Map;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 
 public final class DraftEligiblesSummaryTable
 {
-  private final List<DraftEligiblePlayer> players;
+  private final Map<DraftEligiblePlayer, SummaryStatistics> goalDifferentialStatsMap;
 
-  public DraftEligiblesSummaryTable(final List<DraftEligiblePlayer> players)
+  public DraftEligiblesSummaryTable(final Map<DraftEligiblePlayer, SummaryStatistics> goalDifferentialStatsMap)
   {
-    this.players = Lists.newArrayList(players);
+    this.goalDifferentialStatsMap = Maps.newHashMap(goalDifferentialStatsMap);
   }
 
   public String toHtml()
@@ -25,9 +26,9 @@ public final class DraftEligiblesSummaryTable
     html.append("</meta>\n");
     html.append("</head>\n");
     html.append("<table>\n");
-    for (final DraftEligiblePlayer player : players)
+    for (final Map.Entry<DraftEligiblePlayer, SummaryStatistics> entry : goalDifferentialStatsMap.entrySet())
     {
-      html.append(getTableRowFor(player));
+      html.append(getTableRowFor(entry));
       html.append("\n");
     }
     html.append("</table>\n");
@@ -35,8 +36,12 @@ public final class DraftEligiblesSummaryTable
     return html.toString();
   }
 
-  private String getTableRowFor(final DraftEligiblePlayer player)
+  private String getTableRowFor(final Map.Entry<DraftEligiblePlayer, SummaryStatistics> entry)
   {
+    final DraftEligiblePlayer player = entry.getKey();
+    final long numGoals = entry.getValue().getN();
+    final double averageGoalDifferential = entry.getValue().getMean();
+
     final StringBuilder row = new StringBuilder();
     row.append("<tr>");
     row.append(getTableCellFor(player.getNhlCssRanking()));
@@ -44,6 +49,8 @@ public final class DraftEligiblesSummaryTable
     row.append(getTableCellFor(player.getPosition()));
     row.append(getTableCellFor(player.getTeam()));
     row.append(getTableCellFor(player.getLeague()));
+    row.append(getTableCellFor(numGoals));
+    row.append(getTableCellFor(averageGoalDifferential));
     row.append("</tr>");
     return row.toString();
   }
