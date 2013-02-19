@@ -41,6 +41,12 @@ final class GameReportsToGoalsSummaryFunctionImpl implements GameReportsToGoalsS
       s.append(": ");
       s.append(goalReport.getGoalDescription());
       s.append('\n');
+      s.append("Plus players: ");
+      s.append(goalReport.getPlusPlayers());
+      s.append('\n');
+      s.append("Minus players: ");
+      s.append(goalReport.getMinusPlayers());
+      s.append('\n');
     }
     return s.toString();
   }
