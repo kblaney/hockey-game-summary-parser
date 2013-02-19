@@ -1,5 +1,6 @@
 package com.kblaney.hockey;
 
+import org.jsoup.Jsoup;
 import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -63,12 +64,45 @@ final class GoalReportsSupplier implements DocumentParserTo<List<GoalReport>>
 
   private List<String> getPlusPlayers(final Element goalRow)
   {
-    return Lists.newArrayList();
+    final int plusPlayersTableIndex = 0;
+    return getPlayersOnIce(goalRow, plusPlayersTableIndex);
+  }
+
+  private List<String> getPlayersOnIce(final Element goalRow, final int tableIndex)
+  {
+    final Elements plusMinusCells = goalRow.select("td:eq(1) > a[onmouseover]");
+    if (plusMinusCells.isEmpty())
+    {
+      return Lists.newArrayList();
+    }
+    final String onMouseOverAttrValue = plusMinusCells.first().attr("onmouseover");
+
+    final Pattern pattern = Pattern.compile("'(.*)'");
+    final Matcher matcher = pattern.matcher(onMouseOverAttrValue);
+    if (matcher.find())
+    {
+      final String html = matcher.group(1);
+      final Document document = Jsoup.parseBodyFragment(html);
+      final String cssQuery = String.format("td:eq(%d) > table", tableIndex);
+      final Element table = document.select(cssQuery).first();
+      final Elements playerRows = table.select("tr");
+      final List<String> players = Lists.newArrayList();
+      for (final Element playerRow : playerRows)
+      {
+        players.add(playerRow.text());
+      }
+      return players;
+    }
+    else
+    {
+      throw new IllegalStateException("Can't find plus players:" + onMouseOverAttrValue);
+    }
   }
 
   private List<String> getMinusPlayers(final Element goalRow)
   {
-    return Lists.newArrayList();
+    final int minusPlayersTableIndex = 1;
+    return getPlayersOnIce(goalRow, minusPlayersTableIndex);
   }
 
   private String getGoalScoringTeam(final String goalDescription)
