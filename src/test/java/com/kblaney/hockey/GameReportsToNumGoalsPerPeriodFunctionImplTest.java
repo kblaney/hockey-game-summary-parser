@@ -121,26 +121,28 @@ public final class GameReportsToNumGoalsPerPeriodFunctionImplTest
   public void getNumGoalsPerPeriod_PlayerHasGoalsInTwoOfThreeGames()
   {
     final String playerPhpId = "PLAYER_PHP_ID";
+    final List<String> plusPlayers = Lists.newArrayList();
+    final List<String> minusPlayers = Lists.newArrayList();
     // @formatter:off
     final List<GameReport> gameReports = Lists.newArrayList(
           new GameReport(new LocalDate(2013, 1, 1), "Kingston", "Belleville", Lists.newArrayList(
-                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 1), playerPhpId, "GOAL_DESCRIPTION"),
-                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 2), "OTHER_PLAYER", "GOAL_DESCRIPTION"),
-                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 3), playerPhpId, "GOAL_DESCRIPTION"),
-                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 4), playerPhpId, "GOAL_DESCRIPTION"),
-                new GoalReport(Period.SECOND_PERIOD, new GameScore("KGN", 5), "OTHER_PLAYER", "GOAL_DESCRIPTION"),
-                new GoalReport(Period.SECOND_PERIOD, new GameScore("KGN", 6), playerPhpId, "GOAL_DESCRIPTION"),
-                new GoalReport(Period.THIRD_PERIOD, new GameScore("KGN", 7), "OTHER_PLAYER", "GOAL_DESCRIPTION"),
-                new GoalReport(Period.THIRD_PERIOD, new GameScore("KGN", 8), playerPhpId, "GOAL_DESCRIPTION"),
-                new GoalReport(Period.THIRD_PERIOD, new GameScore("KGN", 9), playerPhpId, "GOAL_DESCRIPTION"),
-                new GoalReport(Period.OVERTIME, new GameScore("KGN", 10), "OTHER_PLAYER", "GOAL_DESCRIPTION"))),
+                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 1), playerPhpId, "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 2), "OTHER_PLAYER", "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 3), playerPhpId, "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 4), playerPhpId, "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.SECOND_PERIOD, new GameScore("KGN", 5), "OTHER_PLAYER", "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.SECOND_PERIOD, new GameScore("KGN", 6), playerPhpId, "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.THIRD_PERIOD, new GameScore("KGN", 7), "OTHER_PLAYER", "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.THIRD_PERIOD, new GameScore("KGN", 8), playerPhpId, "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.THIRD_PERIOD, new GameScore("KGN", 9), playerPhpId, "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.OVERTIME, new GameScore("KGN", 10), "OTHER_PLAYER", "GOAL_DESCRIPTION", plusPlayers, minusPlayers))),
           new GameReport(new LocalDate(2013, 1, 2), "Belleville", "Kingston", Lists.newArrayList(
-                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 1), playerPhpId, "GOAL_DESCRIPTION"),
-                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 2), "OTHER_PLAYER", "GOAL_DESCRIPTION"),
-                new GoalReport(Period.SECOND_PERIOD, new GameScore("KGN", 3), playerPhpId, "GOAL_DESCRIPTION"),
-                new GoalReport(Period.SECOND_PERIOD, new GameScore("KGN", 4), playerPhpId, "GOAL_DESCRIPTION"),
-                new GoalReport(Period.THIRD_PERIOD, new GameScore("KGN", 5), "OTHER_PLAYER", "GOAL_DESCRIPTION"),
-                new GoalReport(Period.OVERTIME, new GameScore("KGN", 6), playerPhpId, "GOAL_DESCRIPTION"))),
+                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 1), playerPhpId, "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.FIRST_PERIOD, new GameScore("KGN", 2), "OTHER_PLAYER", "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.SECOND_PERIOD, new GameScore("KGN", 3), playerPhpId, "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.SECOND_PERIOD, new GameScore("KGN", 4), playerPhpId, "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.THIRD_PERIOD, new GameScore("KGN", 5), "OTHER_PLAYER", "GOAL_DESCRIPTION", plusPlayers, minusPlayers),
+                new GoalReport(Period.OVERTIME, new GameScore("KGN", 6), playerPhpId, "GOAL_DESCRIPTION", plusPlayers, minusPlayers))),
           GameReports.getReportForScorelessGame());
     // @formatter:on
 

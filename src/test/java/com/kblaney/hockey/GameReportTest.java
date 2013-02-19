@@ -28,16 +28,9 @@ public final class GameReportTest
   @Test
   public void constructor_EnsureDefensiveCopyOfGoalReports()
   {
-    emptyGoalReports.add(getArbitraryGoalReport());
+    emptyGoalReports.add(GoalReports.getArbitraryReport());
 
     assertTrue(zeroZeroTieGameReport.getGoalReports().isEmpty());
-  }
-
-  private GoalReport getArbitraryGoalReport()
-  {
-    final GameScore gameScore = new GameScore();
-    gameScore.addGoal("LDN");
-    return new GoalReport(Period.FIRST_PERIOD, gameScore, "GOAL_SCORER_PHP_ID", "GOAL_DESCRIPTION");
   }
 
   @Test
@@ -68,7 +61,7 @@ public final class GameReportTest
   public void getGoalReports_EnsureDefensiveCopy()
   {
     final List<GoalReport> goalReports = zeroZeroTieGameReport.getGoalReports();
-    goalReports.add(getArbitraryGoalReport());
+    goalReports.add(GoalReports.getArbitraryReport());
 
     assertTrue(zeroZeroTieGameReport.getGoalReports().isEmpty());
   }
@@ -82,10 +75,13 @@ public final class GameReportTest
   @Test
   public void getGoalReportsForPlayer()
   {
+    final List<String> plusPlayers = Lists.newArrayList();
+    final List<String> minusPlayers = Lists.newArrayList();
     final List<GoalReport> goalReports = Lists.newArrayList(new GoalReport(Period.FIRST_PERIOD,
-          new GameScore("LDN", 1), "PLAYER_A_PHP_ID", "GOAL_DESCRIPTION"), new GoalReport(Period.FIRST_PERIOD,
-          new GameScore("LDN", 2), "PLAYER_B_PHP_ID", "GOAL_DESCRIPTION"), new GoalReport(Period.FIRST_PERIOD,
-          new GameScore("LDN", 3), "PLAYER_A_PHP_ID", "GOAL_DESCRIPTION"));
+          new GameScore("LDN", 1), "PLAYER_A_PHP_ID", "GOAL_DESCRIPTION", plusPlayers, minusPlayers), new GoalReport(
+          Period.FIRST_PERIOD, new GameScore("LDN", 2), "PLAYER_B_PHP_ID", "GOAL_DESCRIPTION", plusPlayers,
+          minusPlayers), new GoalReport(Period.FIRST_PERIOD, new GameScore("LDN", 3), "PLAYER_A_PHP_ID",
+          "GOAL_DESCRIPTION", plusPlayers, minusPlayers));
     final GameReport gameReport = new GameReport(gameDate, roadTeam, homeTeam, goalReports);
 
     assertEquals(2, gameReport.getGoalReportsForPlayer("PLAYER_A_PHP_ID").size());

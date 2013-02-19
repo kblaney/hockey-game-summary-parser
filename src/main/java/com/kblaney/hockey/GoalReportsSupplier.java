@@ -33,9 +33,11 @@ final class GoalReportsSupplier implements DocumentParserTo<List<GoalReport>>
     final Period period = getPeriod(goalRow);
     final String goalScorerPhpId = getGoalScorerPhpId(goalRow);
     final String goalDescription = getGoalDescription(goalRow);
+    final List<String> plusPlayers = getPlusPlayers(goalRow);
+    final List<String> minusPlayers = getMinusPlayers(goalRow);
     final String goalScoringTeam = getGoalScoringTeam(goalDescription);
     gameScore.addGoal(goalScoringTeam);
-    return new GoalReport(period, gameScore, goalScorerPhpId, goalDescription);
+    return new GoalReport(period, gameScore, goalScorerPhpId, goalDescription, plusPlayers, minusPlayers);
   }
 
   private Period getPeriod(final Element goalRow)
@@ -57,6 +59,16 @@ final class GoalReportsSupplier implements DocumentParserTo<List<GoalReport>>
   private String getGoalDescription(final Element goalRow)
   {
     return goalRow.text();
+  }
+
+  private List<String> getPlusPlayers(final Element goalRow)
+  {
+    return Lists.newArrayList();
+  }
+
+  private List<String> getMinusPlayers(final Element goalRow)
+  {
+    return Lists.newArrayList();
   }
 
   private String getGoalScoringTeam(final String goalDescription)
