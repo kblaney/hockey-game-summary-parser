@@ -82,10 +82,10 @@ public final class GameReportTest
   @Test
   public void getGoalReportsForPlayer()
   {
-    final List<GoalReport> goalReports = Lists.newArrayList(
-          new GoalReport(Period.FIRST_PERIOD, new GameScore("LDN", 1), "PLAYER_A_PHP_ID", "GOAL_DESCRIPTION"),
-          new GoalReport(Period.FIRST_PERIOD, new GameScore("LDN", 2), "PLAYER_B_PHP_ID", "GOAL_DESCRIPTION"),
-          new GoalReport(Period.FIRST_PERIOD, new GameScore("LDN", 3), "PLAYER_A_PHP_ID", "GOAL_DESCRIPTION"));
+    final List<GoalReport> goalReports = Lists.newArrayList(new GoalReport(Period.FIRST_PERIOD,
+          new GameScore("LDN", 1), "PLAYER_A_PHP_ID", "GOAL_DESCRIPTION"), new GoalReport(Period.FIRST_PERIOD,
+          new GameScore("LDN", 2), "PLAYER_B_PHP_ID", "GOAL_DESCRIPTION"), new GoalReport(Period.FIRST_PERIOD,
+          new GameScore("LDN", 3), "PLAYER_A_PHP_ID", "GOAL_DESCRIPTION"));
     final GameReport gameReport = new GameReport(gameDate, roadTeam, homeTeam, goalReports);
 
     assertEquals(2, gameReport.getGoalReportsForPlayer("PLAYER_A_PHP_ID").size());

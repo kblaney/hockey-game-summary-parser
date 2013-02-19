@@ -2,7 +2,9 @@ package com.kblaney.hockey;
 
 final class GoalReports
 {
-  public GoalReports(){}
+  public GoalReports()
+  {
+  }
 
   public static GoalReport getArbitraryReport()
   {

@@ -9,7 +9,8 @@ public final class GoalReport
   private final String scorerPhpId;
   private final String goalDescription;
 
-  public GoalReport(final Period period, final GameScore scoreAfterThisGoal, final String goalScorerPhpId, final String goalDescription)
+  public GoalReport(final Period period, final GameScore scoreAfterThisGoal, final String goalScorerPhpId,
+        final String goalDescription)
   {
     this.period = ArgAssert.assertNotNull(period, "period");
     this.scoreAfterThisGoal = new GameScore(ArgAssert.assertNotNull(scoreAfterThisGoal, "scoreAfterThisGoal"));

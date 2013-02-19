@@ -5,7 +5,7 @@ public class Player
   private final String name;
   private final League league;
   private final String team;
-  private final String position; 
+  private final String position;
   private final String phpId;
 
   public Player(final String name, final League league, final String team, final String position, final String phpId)

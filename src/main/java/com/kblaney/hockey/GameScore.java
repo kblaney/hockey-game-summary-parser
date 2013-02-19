@@ -22,7 +22,7 @@ public final class GameScore
 
   /**
    * Constructs an instance in which one team is being shutout.
-   *
+   * 
    * @param teamOne the team that is not being shutout
    * @param numTeamOneGoals the number of goals for {@code teamOne}
    */
@@ -36,7 +36,7 @@ public final class GameScore
 
   /**
    * Copy constructor.
-   *
+   * 
    * @param gameScore the original game score from which to create this instance
    */
   public GameScore(final GameScore gameScore)
