@@ -107,7 +107,7 @@ final class GoalReportsSupplier implements DocumentParserTo<List<GoalReport>>
 
   private String getGoalScoringTeam(final String goalDescription)
   {
-    final Pattern pattern = Pattern.compile("\\. (\\w+)");
+    final Pattern pattern = Pattern.compile("\\. (\\S+)");
     final Matcher matcher = pattern.matcher(goalDescription);
     if (matcher.find())
     {
