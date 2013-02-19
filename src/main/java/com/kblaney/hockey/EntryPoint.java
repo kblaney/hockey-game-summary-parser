@@ -18,31 +18,37 @@ public final class EntryPoint
 
   public static void main(final String[] args) throws Exception
   {
-    final List<DraftEligiblePlayer> draftEligiblePlayers = Lists.newArrayList(new DraftEligiblePlayer("Seth Jones",
-          League.WHL, "Portland", "D", "26336", 1), new DraftEligiblePlayer("Nathan McKinnon", League.QMJHL, "Halifax",
-          "C", "11126", 2), new DraftEligiblePlayer("Jonathan Drouin", League.QMJHL, "Halifax", "LW", "11188", 3),
-          new DraftEligiblePlayer("Sean Monahan", League.OHL, "Ottawa", "C", "5566", 4), new DraftEligiblePlayer(
-                "Hunter Shinkaruk", League.WHL, "Medicine Hat", "C/LW", "25851", 5), new DraftEligiblePlayer(
-                "Ryan Pulock", League.WHL, "Brandon", "D", "25712", 6), new DraftEligiblePlayer("Frederik Gauthier",
-                League.QMJHL, "Rimouski", "C", "11255", 7), new DraftEligiblePlayer("Valentin Zykov", League.QMJHL,
-                "Baie-Comeau", "LW", "11891", 8), new DraftEligiblePlayer("Darnell Nurse", League.OHL,
-                "Sault Ste. Marie", "D", "5920", 9), new DraftEligiblePlayer("Anthony Mantha", League.QMJHL,
-                "Val D'Or", "RW", "1150", 10), new DraftEligiblePlayer("Joshua Morrissey", League.WHL, "Prince Albert",
-                "D", "25942", 11), new DraftEligiblePlayer("Mirco Mueller", League.WHL, "Everett", "D", "26319", 12),
-          new DraftEligiblePlayer("Adam Erne", League.QMJHL, "Quebec", "LW", "11190", 13), new DraftEligiblePlayer(
-                "William Carrier", League.QMJHL, "Cape Breton", "LW", "248", 14), new DraftEligiblePlayer("Bo Horvat",
-                League.OHL, "London", "C", "5856", 15), new DraftEligiblePlayer("Jason Dickinson", League.OHL,
-                "Guelph", "C", "5898", 16), new DraftEligiblePlayer("Shea Theodore", League.WHL, "Seattle", "C",
-                "25944", 17), new DraftEligiblePlayer("Kerby Rychel", League.OHL, "Windsor", "LW", "5583", 18),
-          new DraftEligiblePlayer("Chris Bigras", League.OHL, "Owen Sound", "D", "5839", 19), new DraftEligiblePlayer(
-                "Madison Bowey", League.WHL, "Kelowna", "D", "25903", 22), new DraftEligiblePlayer("Max Domi",
-                League.OHL, "London", "C/LW", "5967", 23), new DraftEligiblePlayer("Morgan Klimchuk", League.WHL,
-                "Regina", "LW", "25901", 24), new DraftEligiblePlayer("Ryan Hartman", League.OHL, "Plymouth", "RW",
-                "6212", 25), new DraftEligiblePlayer("Curtis Lazar", League.WHL, "Edmonton", "C/RW", "25727", 26),
-          new DraftEligiblePlayer("Nick Sorensen", League.QMJHL, "Quebec", "RW", "11358", 27), new DraftEligiblePlayer(
-                "Jimmy Lodge", League.OHL, "Saginaw", "C", "5853", 28), new DraftEligiblePlayer("Oliver Bjorkstrand",
-                League.WHL, "Portland", "RW", "26331", 29), new DraftEligiblePlayer("Nikita Zadorov", League.OHL,
-                "London", "D", "6311", 30));
+    // @formatter:off
+    final List<DraftEligiblePlayer> draftEligiblePlayers = Lists.newArrayList(
+          new DraftEligiblePlayer("Seth Jones", League.WHL, "Portland", "D", "26336", 1),
+          new DraftEligiblePlayer("Nathan McKinnon", League.QMJHL, "Halifax", "C", "11126", 2),
+          new DraftEligiblePlayer("Jonathan Drouin", League.QMJHL, "Halifax", "LW", "11188", 3),
+          new DraftEligiblePlayer("Sean Monahan", League.OHL, "Ottawa", "C", "5566", 4),
+          new DraftEligiblePlayer("Hunter Shinkaruk", League.WHL, "Medicine Hat", "C/LW", "25851", 5),
+          new DraftEligiblePlayer("Ryan Pulock", League.WHL, "Brandon", "D", "25712", 6),
+          new DraftEligiblePlayer("Frederik Gauthier", League.QMJHL, "Rimouski", "C", "11255", 7),
+          new DraftEligiblePlayer("Valentin Zykov", League.QMJHL, "Baie-Comeau", "LW", "11891", 8),
+          new DraftEligiblePlayer("Darnell Nurse", League.OHL, "Sault Ste. Marie", "D", "5920", 9),
+          new DraftEligiblePlayer("Anthony Mantha", League.QMJHL, "Val D'Or", "RW", "1150", 10),
+          new DraftEligiblePlayer("Joshua Morrissey", League.WHL, "Prince Albert", "D", "25942", 11),
+          new DraftEligiblePlayer("Mirco Mueller", League.WHL, "Everett", "D", "26319", 12),
+          new DraftEligiblePlayer("Adam Erne", League.QMJHL, "Quebec", "LW", "11190", 13),
+          new DraftEligiblePlayer("William Carrier", League.QMJHL, "Cape Breton", "LW", "248", 14),
+          new DraftEligiblePlayer("Bo Horvat", League.OHL, "London", "C", "5856", 15),
+          new DraftEligiblePlayer("Jason Dickinson", League.OHL, "Guelph", "C", "5898", 16),
+          new DraftEligiblePlayer("Shea Theodore", League.WHL, "Seattle", "C", "25944", 17),
+          new DraftEligiblePlayer("Kerby Rychel", League.OHL, "Windsor", "LW", "5583", 18),
+          new DraftEligiblePlayer("Chris Bigras", League.OHL, "Owen Sound", "D", "5839", 19),
+          new DraftEligiblePlayer("Madison Bowey", League.WHL, "Kelowna", "D", "25903", 22),
+          new DraftEligiblePlayer("Max Domi", League.OHL, "London", "C/LW", "5967", 23),
+          new DraftEligiblePlayer("Morgan Klimchuk", League.WHL, "Regina", "LW", "25901", 24),
+          new DraftEligiblePlayer("Ryan Hartman", League.OHL, "Plymouth", "RW", "6212", 25),
+          new DraftEligiblePlayer("Curtis Lazar", League.WHL, "Edmonton", "C/RW", "25727", 26),
+          new DraftEligiblePlayer("Nick Sorensen", League.QMJHL, "Quebec", "RW", "11358", 27),
+          new DraftEligiblePlayer("Jimmy Lodge", League.OHL, "Saginaw", "C", "5853", 28),
+          new DraftEligiblePlayer("Oliver Bjorkstrand", League.WHL, "Portland", "RW", "26331", 29),
+          new DraftEligiblePlayer("Nikita Zadorov", League.OHL, "London", "D", "6311", 30));
+    // @formatter:on
     // 31 MCCARRON, MICHAEL RW USA U-18 USHL
     // 32 HURLEY, CONNOR C EDINA HIGH HIGH-MN
     // 33 NASTASIUK, ZACH RW OWEN SOUND OHL
